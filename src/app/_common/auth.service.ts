@@ -24,4 +24,7 @@ export class AuthService {
   signOut() {
     this.auth.signOut()
   }
+  isLoggedIn(){
+    return !!this.auth.currentUser
+  }
 }
