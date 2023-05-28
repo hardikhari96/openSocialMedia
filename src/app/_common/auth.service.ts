@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, user, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,5 @@ export class AuthService {
   }
   signOut() {
     this.auth.signOut()
-  }
-  isLoggedIn(){
-    return !!this.auth.currentUser
   }
 }

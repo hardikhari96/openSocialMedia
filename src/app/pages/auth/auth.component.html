@@ -1,4 +1,4 @@
-<h1 *ngIf="user">
+<!-- <h1 *ngIf="user">
   You are logged in as {{user?.email}}
 </h1>
 <h1 *ngIf="!user">
@@ -13,4 +13,24 @@
 <button (click)="signup()"> Signup</button>
 <button (click)="signIn()"> signin</button>
 <button (click)="signOut()"> signout</button>
-<button (click)="addUserProfile('hello')"> Add Data</button>
+<button (click)="addUserProfile('hello')"> Add Data</button> -->
+
+
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button *ngIf="!user" >
+      <mat-icon>power_settings_new</mat-icon>
+      Login
+    </button>
+    <button mat-button *ngIf="user" (click)="signOut()">
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
+    </button>
+    <button mat-button routerLink="/game">
+      <mat-icon>gamepad</mat-icon>
+      Play
+    </button>
+  </div>
+</mat-toolbar>
+

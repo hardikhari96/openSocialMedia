@@ -14,6 +14,7 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { AuthService } from './_common/auth.service';
+import { BasicModule } from './_common/basic.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AuthService } from './_common/auth.service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    BasicModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
