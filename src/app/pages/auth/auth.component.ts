@@ -3,6 +3,7 @@ import { Firestore, collectionData, collection, addDoc, doc,setDoc , DocumentRef
 import { Observable, Subscription } from 'rxjs';
 import { Auth, user, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { AuthService } from 'src/app/_common/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -20,10 +21,13 @@ export class AuthComponent {
   gender = '';
   itemCollection = collection(this.firestore, 'users');
 
-  constructor(private authService:AuthService) {
+  constructor(private authService:AuthService,private router:Router) {
     this.item$ = collectionData(this.itemCollection);
     this.userSubscription = this.authService.getUserObserver().subscribe((hello: any) => {
       this.user = hello;
+      if(hello){
+        this.router.navigate(['/dash/chat']);
+      }
       console.log(hello);
     })
   }
@@ -37,6 +41,7 @@ export class AuthComponent {
   signIn() {
     this.authService.signIn(this.email, 'Hello@1234').then(x => {
       console.log('logged in ');
+      this.router.navigate(['/dash/chat']);
     }).catch(y => {
       console.log(y);
     })
