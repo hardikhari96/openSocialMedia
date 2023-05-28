@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "social-media-b8c24": {
+      "hosting": {
+        "social-media": [
+          "social-media-b8c24"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "social-media-b8c24"
+  }
+}
