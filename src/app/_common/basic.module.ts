@@ -1,6 +1,8 @@
 //angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -19,7 +21,7 @@ import { MatOptionModule } from '@angular/material/core';
   declarations: [],
   imports: [
     CommonModule,
-
+    FormsModule, ReactiveFormsModule,
     // material
     MatToolbarModule,
     MatInputModule,
@@ -34,6 +36,7 @@ import { MatOptionModule } from '@angular/material/core';
   ],
   exports:[
     CommonModule,
+    FormsModule, ReactiveFormsModule,
 
     MatToolbarModule,
     MatInputModule,

@@ -1,36 +1,24 @@
-<!-- <h1 *ngIf="user">
-  You are logged in as {{user?.email}}
-</h1>
-<h1 *ngIf="!user">
-  You are logged out
-</h1>
-<ul>
-  <li *ngFor="let item of item$ | async">
-    {{ item | json }}
-  </li>
-</ul>
-
-<button (click)="signup()"> Signup</button>
-<button (click)="signIn()"> signin</button>
-<button (click)="signOut()"> signout</button>
-<button (click)="addUserProfile('hello')"> Add Data</button> -->
-
-
-<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
-
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button *ngIf="!user" >
-      <mat-icon>power_settings_new</mat-icon>
-      Login
-    </button>
-    <button mat-button *ngIf="user" (click)="signOut()">
-      <mat-icon>exit_to_app</mat-icon>
-      Logout
-    </button>
-    <button mat-button routerLink="/game">
-      <mat-icon>gamepad</mat-icon>
-      Play
-    </button>
+<div class="userNameBox" *ngIf="section == 1">
+  <div>
+    <input class="inputUsername" placeholder="Enter Username" [(ngModel)]="username">
+    <button (click)="checkUserExist()">Next</button>
   </div>
-</mat-toolbar>
+</div>
 
+<div class="userNameBox2" *ngIf="section == 2">
+  <div>
+    <input class="inputPassword" placeholder="Enter password" [(ngModel)]="password">
+    <button (click)="signIn()">Login</button>
+  </div>
+</div>
+
+
+<div class="userNameBox2" *ngIf="section == 3">
+  <div>
+    {{username}}
+    <input class="inputPassword" placeholder="Enter password" [(ngModel)]="password">
+    <input class="inputPassword" placeholder="Confirm password" [(ngModel)]="password1">
+    <button (click)="signup()">Sign Up</button>
+  </div>
+  <p>{{message}}</p>
+</div>
