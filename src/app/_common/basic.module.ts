@@ -13,15 +13,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+
 // environment
 
 // angular material
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [
     CommonModule,
-    FormsModule, ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     // material
     MatToolbarModule,
     MatInputModule,
@@ -33,8 +38,9 @@ import { MatOptionModule } from '@angular/material/core';
     MatSlideToggleModule,
     MatSelectModule,
     MatOptionModule,
+    MatDialogModule
   ],
-  exports:[
+  exports: [
     CommonModule,
     FormsModule, ReactiveFormsModule,
 
@@ -48,6 +54,7 @@ import { MatOptionModule } from '@angular/material/core';
     MatSlideToggleModule,
     MatSelectModule,
     MatOptionModule,
+    MatDialogModule
   ]
 })
 export class BasicModule { }

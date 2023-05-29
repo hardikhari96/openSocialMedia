@@ -20,7 +20,7 @@ import { BasicModule } from './_common/basic.module';
   declarations: [
     AppComponent,
     AuthComponent,
-    LandingComponent
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
