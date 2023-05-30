@@ -6,9 +6,13 @@
     <button (click)="signOut()">Logout</button>
   </div>
 </div>
-<div class="convrsnScreen">
-
+<div class="convrsnScreen"  #scrollMe >
+  <ng-container *ngFor="let item of chats;let last = last">
+    <div class="chatText chat{{item.align}}" >
+      {{ item.message }}{{last ? scrollToBottom() : ''}}
+    </div>
+  </ng-container>
 </div>
 <div class="inputText">
-  <input type="text"><button>Sent</button>
+  <input type="text" [(ngModel)]="text" /><button (click)="sentChat()">Sent</button>
 </div>

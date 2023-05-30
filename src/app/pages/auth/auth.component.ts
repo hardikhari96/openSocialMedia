@@ -30,7 +30,6 @@ export class AuthComponent {
       if(hello){
         this.router.navigate(['/dash/chat']);
       }
-      console.log(hello);
     })
   }
   checkUserExist(){
