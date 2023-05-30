@@ -16,72 +16,7 @@ interface chats {
 })
 export class ChatComponent {
   text : string = '';
-  chats : chats[] = [
-    {
-      align : 'Right',
-      message : "Hello."
-    },
-    {
-      align : 'Left',
-      message : "Hi, How Are you"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    },
-    {
-      align : 'Right',
-      message : "I am fine and you ?"
-    }
-  ]
+  chats : chats[] = [ ]
   @ViewChild('scrollMe')
   private myScrollContainer!: ElementRef;
   constructor(private authService: AuthService, private router: Router, public dialog: MatDialog) { }
