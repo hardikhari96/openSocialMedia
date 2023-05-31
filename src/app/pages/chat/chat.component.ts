@@ -5,8 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChatUsersComponent } from 'src/app/_components/chat-users/chat-users.component';
 
 interface chats {
-  message:string,
-  align : string
+  message: string,
+  align: string
 }
 
 @Component({
@@ -15,13 +15,19 @@ interface chats {
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-  text : string = '';
-  chats : chats[] = [ ]
+  text: string = '';
+  currentUser: any = {};
+  chats: chats[] = []
   @ViewChild('scrollMe')
   private myScrollContainer!: ElementRef;
-  constructor(private authService: AuthService, private router: Router, public dialog: MatDialog) { }
+  constructor(private authService: AuthService, private router: Router, public dialog: MatDialog) {
+    console.log(this.authService.getAuth().currentUser?.email?.split('@')[0]);
+    let currentUser: any = this.authService.getAuth().currentUser;
+    currentUser.userName = currentUser?.email?.split('@')[0];
+    this.currentUser = currentUser;
+  }
   openDialog() {
-    this.dialog.open(ChatUsersComponent);
+    this.dialog.open(ChatUsersComponent, { data: this.currentUser });
   }
   signOut() {
     this.authService.signOut();
@@ -34,10 +40,10 @@ export class ChatComponent {
     } catch (err) { }
   }
 
-  sentChat(){
+  sentChat() {
     this.chats.push({
-      align : 'Right',
-      message : this.text
+      align: 'Right',
+      message: this.text
     })
     this.text = '';
   }

@@ -15,6 +15,9 @@ export class AuthService {
     user = `${user}${this.commonEmail}`;
     return (await fetchSignInMethodsForEmail(this.auth,user)).length > 0;
   }
+  getEmail(userName:string){
+    return `${user}${this.commonEmail}`
+  }
   getAuth(){
     return this.auth;
   }

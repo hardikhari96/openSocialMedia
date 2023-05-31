@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { Firestore, collectionData, collection, addDoc, doc,setDoc , DocumentReference } from '@angular/fire/firestore';
-import { Observable, Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/_common/auth.service';
 import { Router } from '@angular/router';
+import { FirestoreService } from 'src/app/_common/firestore.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,42 +10,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
-  item$: Observable<any[]>;
-  firestore: Firestore = inject(Firestore);
   userSubscription: Subscription;
   user: any;
   username = '';
-  email = `haripatel@socialmedia.haripatel.dev`;
   password = '';
   password1 = '';
-  gender = '';
-  itemCollection = collection(this.firestore, 'users');
   section = 1;
-  that:any = this;
   message = '';
-  constructor(private authService:AuthService,private router:Router) {
-    this.item$ = collectionData(this.itemCollection);
-    this.userSubscription = this.authService.getUserObserver().subscribe((hello: any) => {
-      this.user = hello;
-      if(hello){
+  that = this;
+  constructor(private authService: AuthService, private fireStoreService: FirestoreService,private router: Router) {
+    this.userSubscription = this.authService.getUserObserver().subscribe((data: any) => {
+      if (data) {
+        this.user = data;
         this.router.navigate(['/dash/chat']);
       }
     })
   }
-  checkUserExist(){
-    this.authService.checkUserExists(this.username).then(data => (data == true) ? 2 : 3).then(finalres=>{
-      console.log(finalres);
-      this.section = finalres;
+  checkUserExist() {
+    this.authService.checkUserExists(this.username).then(data => (data == true) ? 2 : 3).then(res => {
+      this.section = res;
     })
   }
   signup() {
-    if(this.password !=this.password1) {
+    if (this.password != this.password1) {
       this.message = 'Password Not Matching';
       return;
     }
     this.authService.signUp(this.username, this.password).then(x => {
-      console.log('registreed');
-    }).catch(error=> {
+      this.fireStoreService.updateData('users',this.username,{
+        email: x.user.email,
+        peerId: 'temp',
+        friends: []
+      }).then(x=>{
+        this.router.navigate(['/dash/chat']);
+      })
+    }).catch(error => {
       switch (error.code) {
         case 'auth/email-already-in-use':
           this.message = `Email address already in use.`;
@@ -57,7 +56,7 @@ export class AuthComponent {
           this.message = `Error during sign up.`;
           break;
         case 'auth/weak-password':
-          this.message ='Password is not strong enough. Add additional characters including special characters and numbers.';
+          this.message = 'Password is not strong enough. Add additional characters including special characters and numbers.';
           break;
         default:
           console.log(error.message);
@@ -66,7 +65,7 @@ export class AuthComponent {
     })
   }
   signIn() {
-    this.authService.signIn(this.username,this.password).then(x => {
+    this.authService.signIn(this.username, this.password).then(x => {
       console.log('logged in ');
       this.router.navigate(['/dash/chat']);
     }).catch(y => {
@@ -75,20 +74,6 @@ export class AuthComponent {
   }
   signOut() {
     this.authService.signOut()
-  }
-  addUserProfile(username: string) {
-    if (!username) return;
-    addDoc(this.itemCollection, <any>{
-      hari: {
-        aaa: 1
-      }
-    }).then((documentReference: DocumentReference) => {
-      // the documentReference provides access to the newly created document
-    });
-     setDoc(doc(this.firestore, "myCollection", "hari"), {
-      field1: "value1",
-      field2: "value2"
-    });
   }
   ngOnDestroy() {
     // when manually subscribing to an observable remember to unsubscribe in ngOnDestroy

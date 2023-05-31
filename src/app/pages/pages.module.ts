@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChatComponent } from './chat/chat.component';
 import { BasicModule } from '../_common/basic.module';
 import { RouterModule, Routes } from '@angular/router';
+import { ChatUsersComponent } from '../_components/chat-users/chat-users.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+    ChatUsersComponent,
     ChatComponent,
   ],
   imports: [
