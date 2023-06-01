@@ -39,4 +39,11 @@ export class FirestoreService {
   updatePeerId(userName:string,peerId:string){
     return setDoc(doc(this.firestore, 'users', userName), {peerId},{merge:true});
   }
+
+  async getUserPeerId(userName: string): Promise<string | null> {
+    const docRef = doc(this.firestore, 'users', userName);
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists() ? docSnap.get('peerId') : null;
+  }
+
 }

@@ -12,7 +12,7 @@ export class ChatUsersComponent {
   constructor(
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    fireStoreService: FirestoreService) {
+    private fireStoreService: FirestoreService) {
     let userData = fireStoreService.getUserData('users',data.userName);
     userData.then(x=>{this.userData = x.data()})
   }
@@ -20,5 +20,8 @@ export class ChatUsersComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
+  async connectUser(user: string) {
+     let data = await this.fireStoreService.getUserPeerId(user);
+     this.dialogRef.close(data);
+  }
 }

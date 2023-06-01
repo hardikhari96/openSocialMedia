@@ -8,3 +8,9 @@
 	padding: 2px;
 	margin: 6px 0px;
 }
+
+
+.userList {
+	display: flex;
+	justify-content: space-evenly;
+}
