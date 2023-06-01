@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild ,ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_common/auth.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -30,7 +30,7 @@ export class ChatComponent {
   remoteUserConnection: DataConnection | undefined;
   @ViewChild('scrollMe')
   private myScrollContainer!: ElementRef;
-  constructor(private authService: AuthService, private router: Router, public dialog: MatDialog, private fireStore: FirestoreService) {
+  constructor(private cdr: ChangeDetectorRef,private authService: AuthService, private router: Router, public dialog: MatDialog, private fireStore: FirestoreService) {
     let currentUser: any = this.authService.getAuth().currentUser;
     currentUser.userName = currentUser?.email?.split('@')[0];
     this.currentUser = currentUser;
@@ -40,16 +40,16 @@ export class ChatComponent {
       console.log('My peer ID is: ' + id);
     });
     this.newPeers.on('connection', (data: DataConnection) => {
-      console.log('got connection',data.peer);
+      console.log('got connection', data.peer);
       this.remoteUserConnection = data;
       data.on('data', (perrData: any) => {
         // here we get call from user
-        console.log('got connection message',data.peer);
-
+        console.log('got connection message', data.peer);
         this.chats.push({
           align: 'Left',
           message: perrData
         })
+        this.cdr.detectChanges();
       })
     })
     this.newPeers.on('call', (data: MediaConnection) => {
@@ -61,13 +61,13 @@ export class ChatComponent {
     let dialogRef = this.dialog.open(ChatUsersComponent, { data: this.currentUser });
     dialogRef.afterClosed().subscribe(result => {
       this.remoteUserConnection = this.newPeers.connect(result);
-      this.remoteUserConnection.on('data', (data:any) => {
-
+      this.remoteUserConnection.on('data', (data: any) => {
         console.log('dataFrom remoteCOnnection', data);
         this.chats.push({
           align: 'Left',
           message: data
         })
+        this.cdr.detectChanges();
       })
       console.log('The dialog was closed', result);
     });
