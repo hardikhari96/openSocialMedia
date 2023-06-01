@@ -35,4 +35,8 @@ export class FirestoreService {
   addData(collection: CollectionReference, data: Object) {
     return addDoc(collection, data)
   }
+
+  updatePeerId(userName:string,peerId:string){
+    return setDoc(doc(this.firestore, 'users', userName), {peerId},{merge:true});
+  }
 }
