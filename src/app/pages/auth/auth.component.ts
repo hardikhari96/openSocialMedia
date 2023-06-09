@@ -22,7 +22,7 @@ export class AuthComponent {
     this.userSubscription = this.authService.getUserObserver().subscribe((data: any) => {
       if (data) {
         this.user = data;
-        this.router.navigate(['/dash/chat']);
+        this.router.navigate(['/dash/friends']);
       }
     })
   }
@@ -42,7 +42,7 @@ export class AuthComponent {
         peerId: 'temp',
         friends: []
       }).then(x=>{
-        this.router.navigate(['/dash/chat']);
+        this.router.navigate(['/dash/friends']);
       })
     }).catch(error => {
       switch (error.code) {
@@ -67,9 +67,16 @@ export class AuthComponent {
   signIn() {
     this.authService.signIn(this.username, this.password).then(x => {
       console.log('logged in ');
-      this.router.navigate(['/dash/chat']);
-    }).catch(y => {
-      console.log(y);
+      this.router.navigate(['/dash/friends']);
+    }).catch(error => {
+      switch (error.code) {
+        case 'INVALID_PASSWORD':
+          this.message = 'Wrong Password';
+          break;
+        default:
+          this.message = error.message;
+          break;
+      }
     })
   }
   signOut() {

@@ -1,0 +1,9 @@
+<div>
+  <button>Random Chat</button>
+</div>
+<input type="text" placeholder="Add New User" /><button>Add User</button>
+<mat-list role="list">
+  <mat-list-item *ngFor="let user of userData?.friends" role="listitem">
+    {{ user }} <button>Connect</button>
+  </mat-list-item>
+</mat-list>

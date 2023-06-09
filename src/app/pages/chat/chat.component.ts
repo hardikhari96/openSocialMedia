@@ -10,11 +10,6 @@ interface chats {
   message: string,
   align: string
 }
-interface Peers {
-  _id: number;
-  // other properties
-}
-
 
 @Component({
   selector: 'app-chat',
@@ -55,6 +50,10 @@ export class ChatComponent {
     this.newPeers.on('call', (data: MediaConnection) => {
       // here will notifiy user calls
       console.log(data);
+    })
+    this.newPeers.on('disconnected', () => {
+      // di
+      console.log("disconnected peer");
     })
   }
   openDialog() {
